@@ -46,6 +46,13 @@ pub struct ListRolesResponse {
 /// [GenerateCredentialsRequest][crate::api::database::requests::GenerateCredentialsRequest]
 #[derive(Deserialize, Debug, Serialize)]
 pub struct GenerateCredentialsResponse {
+    pub data: CredentialsResponse,
+    pub lease_id: String,
+    pub lease_duration: u32,
+}
+
+#[derive(Deserialize, Debug, Serialize)]
+pub struct CredentialsResponse {
     pub username: String,
     pub password: String,
 }
