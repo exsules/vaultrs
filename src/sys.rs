@@ -153,6 +153,29 @@ pub mod auth {
     }
 }
 
+pub mod lease {
+    use crate::{
+        api::{
+            self,
+            sys::{requests::RenewLeaseRequest, responses::RenewLeaseResponse},
+        },
+        client::Client,
+        error::ClientError,
+    };
+
+    pub async fn renew(
+        client: &impl Client,
+        lease_id: &str,
+        increment: Option<&str>,
+    ) -> Result<RenewLeaseResponse, ClientError> {
+        let mut endpoint = RenewLeaseRequest::builder();
+        if let Some(inc) = increment {
+            endpoint.increment(inc);
+        }
+        api::exec_with_result(client, endpoint.lease_id(lease_id).build().unwrap()).await
+    }
+}
+
 pub mod mount {
     use std::collections::HashMap;
 

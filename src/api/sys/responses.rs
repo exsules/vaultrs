@@ -142,3 +142,10 @@ pub struct ReadPolicyResponse {
 pub struct RandomResponse {
     pub random_bytes: String,
 }
+
+#[derive(Deserialize, Debug, Serialize)]
+pub struct RenewLeaseResponse {
+    pub lease_id: String,
+    pub renewable: bool,
+    pub lease_duration: u32,
+}

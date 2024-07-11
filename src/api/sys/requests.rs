@@ -1,7 +1,7 @@
 use super::responses::{
     AuthResponse, GetConfigurationOfTheSecretEngineResponse, ListPoliciesResponse, MountResponse,
-    RandomResponse, ReadHealthResponse, ReadPolicyResponse, StartInitializationResponse,
-    UnsealResponse, WrappingLookupResponse,
+    RandomResponse, ReadHealthResponse, ReadPolicyResponse, RenewLeaseResponse,
+    StartInitializationResponse, UnsealResponse, WrappingLookupResponse,
 };
 use rustify_derive::Endpoint;
 use serde::Serialize;
@@ -361,4 +361,17 @@ pub struct RandomRequest {
     pub bytes: Option<u64>,
     pub format: Option<String>,
     pub source: Option<String>,
+}
+
+#[derive(Builder, Debug, Default, Endpoint)]
+#[endpoint(
+    path = "/sys/leases/renew",
+    method = "POST",
+    response = "RenewLeaseResponse",
+    builder = "true"
+)]
+#[builder(setter(into, strip_option), default)]
+pub struct RenewLeaseRequest {
+    pub lease_id: String,
+    pub increment: Option<String>,
 }
