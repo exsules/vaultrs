@@ -172,7 +172,7 @@ pub mod lease {
         if let Some(inc) = increment {
             endpoint.increment(inc);
         }
-        api::exec_with_result(client, endpoint.lease_id(lease_id).build().unwrap()).await
+        api::exec_with_no_result(client, endpoint.lease_id(lease_id).build().unwrap()).await
     }
 }
 
